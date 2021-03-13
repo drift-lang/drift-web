@@ -37,11 +37,11 @@
 }
 
 .content {
-    width: 900px;
-    height: 500px;
+    /* width: 900px; */
+    /* height: 500px; */
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
 }
@@ -55,7 +55,7 @@
     font-size: 20px;
     margin-top: 50px;
 }
-
+/* 
 .content #button {
     width: 240px;
     height: 40px;
@@ -68,7 +68,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     font-size: 15px;
-}
+} */
 
 .content a {
     text-decoration: none;
