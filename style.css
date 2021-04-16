@@ -1,94 +1,52 @@
 * {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
+  font-family: "Courier New", Courier, monospace;
 }
 
-.header {
-    color: white;
-    line-height: 40px;
-    background-color: #1283FF;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+body {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
-.header #title {
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
-    font-size: 14px;
+p {
+  /* line-height: 40px; */
+  font-size: 15px;
 }
 
-.header #item {
-    text-align: center;
-    list-style: none;
-    margin-left: 300px;
+a {
+  /* text-decoration: none; */
+  font-size: 13px;
 }
 
-.header #item li {
-    float: left;
-    margin-left: 30px;
-    font-size: 13px;
+.header #b-title {
+  font-weight: bold;
+  /* font-family: "黑体"; */
+  /* font-size: 30px; */
+  margin-top: 20px;
 }
 
-.header #item a {
-    text-decoration: none;
-    color: white;
+.header a {
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
 }
 
-.content {
-    /* width: 900px; */
-    /* height: 500px; */
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+.content ul {
+  list-style: none;
+  display: table;
+  margin: 0 auto;
 }
 
-.content #title {
-    font-size: 50px;
-    font-weight: 100;
+.content ul li {
+  float: left;
+  margin: 0 10px 0 10px;
 }
 
-.content #sub-title {
-    font-size: 20px;
-    margin-top: 50px;
-}
-/* 
-.content #button {
-    width: 240px;
-    height: 40px;
-    background-color: #1283FF;
-    border-radius: 5px;
-    line-height: 40px;
-    margin-top: 180px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 15px;
-} */
-
-.content a {
-    text-decoration: none;
-    color: white;
-}
-
-.footer {
-    width: 100%;
-    font-size: 12px;
-    text-align: center;
-    position: fixed;
-    bottom: 20px;
-}
-
-.footer a {
-    color: red;
-    text-decoration: none;
-}
-
-.footer #item {
-    color: #1283FF;
-    text-decoration: none;
+.footer p {
+  font-size: 11px;
 }
