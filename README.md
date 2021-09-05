@@ -128,9 +128,7 @@ license:  GNU General Public License GPL v3.0
 
 #### 类型系统
 
-Drift 支持 9 种数据类型提供编码。
-
-不是高精度编译型底层语言，目前仅实现了以下类型。
+Drift 支持以下数据类型提供编码。
 
 ##### 整型
 
@@ -345,7 +343,7 @@ for def i int = 0;
   println(i)
 
 # 输出 0，1，2，3，4
-for def i in = 0;
+for def i int = 0;
     i < 10; i = i + 1
   out i == 5
   println(i)
@@ -477,14 +475,14 @@ def () show
 
 #b.ft
 #~/demo/b.ft
-use inner/a
+use inner\a
 
 println(a, a::show)
 a::show()
 
 #c.ft
 #~/demo/c.ft
-use <-inner/a
+use <-inner\a
 
 println(show)
 show()
@@ -501,7 +499,7 @@ show()
 
 ##### 内建函数
 
-目前内建的函数有 13 个。
+目前内建的函数有 11  个。
 
 |名称|定义|作用|
 |-|-|-|
@@ -682,6 +680,6 @@ Drift 使用对象引用计数（RC）的方式回收对象内存。
 
 博文：https://bingxio.fun/article/2021-08-11.html
 
-### 未来
 #### PR
-#### 社区
+
+欢迎在 Github 仓库提交 Issue 和 Pull request！！
