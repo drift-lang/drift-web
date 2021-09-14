@@ -106,7 +106,7 @@ drift ./hello.ft
 Drift 还未支持 REPL 环境，目前可以直接执行 drift 命令得到提示信息。
 
 ```shell
-usage: drift <option> FILE(.ft)
+usage: drift FILE(.ft) <option>
 
 command:
   token       show lexical token list
@@ -201,8 +201,8 @@ Drift 可以支持函数作为参数，和函数作为值返回。
 
 ```
 def () show -> |int, int| -> int
-  ret def (a, b int) _ -> int
-    ret a + b
+    ret def (a, b int) _ -> int
+        ret a + b
 
 println(show())       # function _
 println(show()(3, 5)) # 8
@@ -211,13 +211,13 @@ def fn |int, int| -> int = show()
 println(type(fn)) # function
 
 def (fn || -> string) show
-  print(fn())
+    print(fn())
 
 def () a -> string
-  ret "hello, "
+    ret "hello, "
 
 def () b -> string
-  ret "world!"
+    ret "world!"
 
 show(a)
 show(b)
@@ -290,15 +290,15 @@ def a int = 20
 def b int = 30
 
 if a > b
-  println("CALL A")
+    println("CALL A")
 ef a == 10
-  println("CALL B)
+    println("CALL B)
 ef a == 20
-  println("CALL C")
+    println("CALL C")
   if 1 + 1 == 2
-    println("CALL D")
+      println("CALL D")
 nf
-  println("ERROR")
+    println("ERROR")
 ```
 
 ##### 循环
@@ -308,13 +308,13 @@ nf
 ```
 def i int = 0
 aop i < 100
-  if i % 2 == 0
-    println("i =", i)
-  i = i + 1
+    if i % 2 == 0
+        println("i =", i)
+    i = i + 1
 
 for def i int = 0; i < 10; i = i + 1
-  if i % 2 == 0
-    println("i =", i)
+    if i % 2 == 0
+        println("i =", i)
 ```
 
 循环控制使用<code>go</code>，<code>out</code>语句定义。
@@ -324,10 +324,10 @@ for def i int = 0; i < 10; i = i + 1
 ```
 # 输出 0，1，2，3，4
 for def i int = 0;
-    i < 10; i = i + 1
-  if i == 5
-    out ->
-  println(i)
+      i < 10; i = i + 1
+    if i == 5
+        out ->
+    println(i)
 
 # 输出 0，1，2，3，4，6，7，8，9
 for def i int = 0;
@@ -338,15 +338,34 @@ for def i int = 0;
 
 # 输出 0，1，2，3，4，6，7，8，9
 for def i int = 0;
-    i < 10; i = i + 1
-  go i == 5
-  println(i)
+      i < 10; i = i + 1
+    go i == 5
+    println(i)
 
 # 输出 0，1，2，3，4
 for def i int = 0;
-    i < 10; i = i + 1
-  out i == 5
-  println(i)
+      i < 10; i = i + 1
+    out i == 5
+    println(i)
+```
+
+##### 迭代
+
+使用 for 关键字迭代一个数组，循环控制同上。
+
+```
+def () test -> []int
+    def list []int = []
+
+    for def i int = 0; i < 20; i = i + 1
+        append(list, i * 2)
+    ret list
+
+for x <- test()
+    if x % 8 == 0
+        println("mod(8): ", x)
+        go ->
+    println(x)
 ```
 
 ##### 函数
@@ -358,24 +377,25 @@ for def i int = 0;
 ```
 # 不带参数
 def () show
-  println("CALL")
+    println("CALL")
 show()
 
 # 带参数
 def (a, b int, c string) show
-  println(a, b, c)
+    println(a, b, c)
 show(1, 2, "OK")
 
 # 带参数，带返回
 def (a int, b int) add -> int
-  ret a + b
+    ret a + b
 def x int = add(3, 8)
 println(x) # 11
 
 # 多参数，位置只能为最后参数
 def (a int, b <-string) show
-  println("A =", a, "B =", b)
-show(23, "a", "hello?", "who!", "good")
+    println("A =", a, "B =", b)
+show(
+    23, "a", "hello?", "who!", "good")
 ```
 
 ##### 类
@@ -386,17 +406,17 @@ show(23, "a", "hello?", "who!", "good")
 
 ```
 def User
-  def name string = nil
-  def age int = nil
+    def name string = nil
+    def age int = nil
 
-  def tip = "USER"
+    def tip = "USER"
 
-  def () login -> {}<string, any>
-    def m {}<string, any> = {
-      "name": .name,
-      "age" : .age
-    }
-    ret m
+    def () login -> {}<string, any>
+        def m {}<string, any> = {
+            "name": .name,
+            "age" : .age
+        }
+        ret m
 def u User = new User{name: "bingxio", age: 20}
 println(u, u.tip, u.login())
 ```
@@ -411,17 +431,17 @@ Drift 使用<code>def</code>定义接口，使用鸭子类型（不需要显示�
 
 ```
 def Person
-  \string\ say    # 接口方法
-  \\ eat -> bool  # 接口方法
+    \string\ say    # 接口方法
+    \\ eat -> bool  # 接口方法
 
 def Me
-  def age int = nil
+    def age int = nil
 
-  def (word string) say
-    println("say:", word)
+    def (word string) say
+        println("say:", word)
   
-  def () eat -> bool
-    ret .age == nil | .age < 6
+    def () eat -> bool
+        ret .age == nil | .age < 6
 
 # 实例化给接口
 def p Person = new Me{age: 20}
@@ -429,7 +449,7 @@ println(p.age, p.say("Hello"), p.eat())
 
 # 使用参数传递
 def (p Person) show
-  p.say("What?")
+    p.say("What?")
 
 show(new Me{})
 ```
@@ -442,23 +462,43 @@ Drift 的泛型支持类成员，接口成员，和函数参数。
 
 ```
 def Foo<T> # 接口可以不必定义其类型
-  \T, T\ show -> string
+    \T, T\ show -> string
 
 def Bar<T int | float>
-  def x T = nil
+    def x T = nil
 
-  # 此处规范为接口的方法
-  def <T any>(a, b T) show -> string
-    ret type(a) + " " + type(b)
+    # 此处规范为接口的方法
+    def <T any>(a, b T) show -> string
+        ret type(a) + " " + type(b)
 
 def a Bar = new Bar{x: 20}
 def b Bar = new Bar{x: 8.3}
 
 println(type(a.x), type(b.x)) # int float
 println(
-  a.show('p', 34), # char int
-  b.show(1.2, "?") # float string 
+    a.show('p', 34), # char int
+    b.show(1.2, "?") # float string 
 ) 
+```
+
+##### 异常
+
+Drift 支持抛出异常和定义异常。
+
+使用类似管道的方式定义和接收异常的数据。下例，定义了名称为 e 的异常块，在类成员方法 show 中被抛出，且传入了一个字符串数据给异常块，此时，它将被输出。抛出异常后不执行后续代码，show 方法的返回值是 nil。
+
+```
+e ->
+    println("exception:", e)
+
+def Foo
+    def (a, b int) show -> int
+        if a == 3
+            e <- "hello, world!"
+        ret a * b
+
+def f Foo = new Foo{}
+println(f, f.show(3, 5))
 ```
 
 ##### 模块
@@ -471,7 +511,7 @@ println(
 #a.ft
 #~/demo/inner/a.ft
 def () show
-  println("CALL INNER")
+    println("CALL INNER")
 
 #b.ft
 #~/demo/b.ft
@@ -535,37 +575,37 @@ void foo(keg *arg) { push_stack(new_num(arg->item)); }
 
 /* add 函数，接收 2 个参数，并退入它们的和到栈 */
 void add(keg *arg) {
-  int b = check_num(arg, 0);
-  int a = check_num(arg, 1);
-  push_stack(new_num(a + b));
+    int b = check_num(arg, 0);
+    int a = check_num(arg, 1);
+    push_stack(new_num(a + b));
 }
 
 /* new_user 函数，推入一个用户数据 */
 void new_user(keg *arg) {
-  user *u = malloc(sizeof(user)); /* 声明一块内存 */
-  u->name = "bingxio";
-  u->age = 20;
-  push_stack(new_userdata(u)); /* 推入用户对象 */
+    user *u = malloc(sizeof(user)); /* 声明一块内存 */
+    u->name = "bingxio";
+    u->age = 20;
+    push_stack(new_userdata(u)); /* 推入用户对象 */
 }
 
 /* get_name 函数，接收一个用户参数，推入它的 name 参数 */
 void get_name(keg *arg) {
-  user *u = check_userdata(arg, 0); /* 检查首个参数为用户参数 */
-  push_stack(new_string(u->name));
+    user *u = check_userdata(arg, 0); /* 检查首个参数为用户参数 */
+    push_stack(new_string(u->name));
 }
 
 /* get_age 函数，接收一个用户参数，推入它的 age 参数 */
 void get_age(keg *arg) {
-  user *u = check_userdata(arg, 0);
-  push_stack(new_num(u->age));
+    user *u = check_userdata(arg, 0);
+    push_stack(new_num(u->age));
 }
 
 /* 模块定义 */
 reg_mod *bar() {
-  reg_mod *m = new_mod("bar");  /* 使用 new_code 初始化模块结构，并给入名称 */
-  emit_member(m, "x", C_VAR);         /* 设置成员，名称为函数名称 */
-  emit_member(m, "show", C_METHOD);   /* 设置成员方法，名称为函数名称 */
-  return m;
+    reg_mod *m = new_mod("bar");  /* 使用 new_code 初始化模块结构，并给入名称 */
+    emit_member(m, "x", C_VAR);         /* 设置成员，名称为函数名称 */
+    emit_member(m, "show", C_METHOD);   /* 设置成员方法，名称为函数名称 */
+    return m;
 }
 
 /* 模块成员，推入一个字符串 */
@@ -589,9 +629,9 @@ static const char *user_mods[] = {"bar", NULL};
 
 /* 初始化函数，虚拟机最先调用 */
 void init() {
-  reg_c_func(user_func); /* 注册函数 */
-  reg_c_mod(user_mods);  /* 注册模块 */
-  reg_name("cn", new_char('p')); /* 注册名称 */
+    reg_c_func(user_func); /* 注册函数 */
+    reg_c_mod(user_mods);  /* 注册模块 */
+    reg_name("cn", new_char('p')); /* 注册名称 */
 }
 ```
 
